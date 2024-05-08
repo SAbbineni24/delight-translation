@@ -1,15 +1,47 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { IoIosInformationCircleOutline } from "react-icons/io";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 interface InputProps {
     placeholder : string
     value? : string  
     onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
+
+interface InformationPopupProps {
+    content : string
+}
+
+export function InformationPopup({content} : InformationPopupProps) {
+    const [opacity, setOpacity] = useState(0); // State to control opacity
+
+    return (
+        <div className="relative z-10">
+          
+                <IoMdInformationCircleOutline 
+                onMouseEnter={() => setOpacity(1)} // Set opacity to 1 on mouse enter
+                onMouseLeave={() => {
+                    setOpacity(0); // Set opacity to 0 with delay
+
+                }}
+                className="cursor-pointer"
+                size={24} />
+            <div
+                className={`absolute bg-black text-white z-10 p-2 rounded-lg transition-opacity duration-500 ${
+                    opacity ? 'opacity-100' : 'opacity-0'
+                } pointer-events-none max-w-xs w-auto`}
+                style={{ transitionDelay: `${opacity ? '0ms' : '1000ms'}` }}
+            >
+                {content}
+            </div>
+        </div>
+    );
 }
 
 export function Input({placeholder, value, onChange} : InputProps) {
@@ -51,10 +83,25 @@ export default function Home() {
   } 
 
   const [model, setModel] = useState('');
+  const [score, setScores] = useState("Select a model!");
 
   const handleChange = (event: SelectChangeEvent) => {
     setModel(event.target.value as string);
   };
+
+  useEffect(() => {
+    const modelToScore = {
+      "marian-kde4" : "a",
+      "marian-iswlt2017" : "b",
+      "T5-kde4" : "c",
+      "T5-iswlt2017" : "d",
+      "delight" : "e"
+    }
+
+    //@ts-ignore
+    setScores(modelToScore[model])
+
+  }, [model])
 
 
   return (
@@ -75,7 +122,7 @@ export default function Home() {
           
         </div>
         <div className="m-32 mt-0 mb-4">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center  justify-center">
 
               <FormControl fullWidth className="mr-4">
                 <InputLabel id="demo-simple-select-label">Select Model</InputLabel>
@@ -94,6 +141,10 @@ export default function Home() {
   
               </Select>
             </FormControl>
+            <InformationPopup 
+              content={score}
+            
+            />
       </div>
 </div>
 
