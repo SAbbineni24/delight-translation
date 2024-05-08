@@ -9,7 +9,7 @@ To run the web app, use the following instructions:
 2. Make sure you have npm installed. If not, install it from [Node.js official site](https://nodejs.org/en/download/).
 
 3. `npm --install` 
-4. `pip3 install requirements.txt`
+4. `pip install requirements.txt` or `pip3 install requirements.text` depending on which version you have install
 
 5. `npm run dev`
 
