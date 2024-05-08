@@ -8,6 +8,20 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello, World"}
 
+@app.get("/T5-iswlt2017/{english_text}")
+def do_T5_iswlt2017(english_text):
+    print(english_text)
+    pipe = pipeline("text2text-generation", model="emath/google-t5base-finetuned-iswlt2017-en-to-fr")
+    res = pipe(english_text)
+    return {"message" : res[0]['generated_text']}
+
+@app.get("/T5-kde4/{english_text}")
+def do_T5_kde4(english_text):
+    print(english_text)
+    pipe = pipeline("text2text-generation", model="emath/google-t5base-finetuned-kde4-en-to-fr")
+    res = pipe(english_text)
+    return {"message" : res[0]['generated_text']}
+
 # /items/?q=somevalue.
 @app.get("/marian-kde4/{english_text}")
 def do_marian_kde4(english_text):

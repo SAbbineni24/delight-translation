@@ -83,11 +83,13 @@ export default function Home() {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={model}
-                label="Age"
+                label="Models"
                 onChange={handleChange}
               >
                 <MenuItem value={"marian-kde4"}>Marian (KDe4)</MenuItem>
                 <MenuItem value={"marian-iswlt2017"}>Marian (iswlt2017) </MenuItem>
+                <MenuItem value={"T5-kde4"}>T5 (KDe4) </MenuItem>
+                <MenuItem value={"T5-iswlt2017"}>T5 (iswlt2017) </MenuItem>
                 <MenuItem value={"delight"}>Delight</MenuItem>
   
               </Select>
