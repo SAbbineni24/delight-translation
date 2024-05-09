@@ -98,11 +98,11 @@ export default function Home() {
 
   useEffect(() => {
     const modelToScore = {
-      "marian-kde4" : "a",
-      "marian-iswlt2017" : "b",
-      "T5-kde4" : "c",
-      "T5-iswlt2017" : "d",
-      "delight" : "e"
+      "marian-kde4" : "BLEU : 47.283",
+      "marian-iswlt2017" : "BLEU : 40.884",
+      "T5-kde4" : "BLEU : 43.718",
+      "T5-iswlt2017" : "BLEU : 35.586",
+      "delight" : "BLEU : 32.114"
     }
 
     //@ts-ignore
