@@ -98,6 +98,8 @@ export default function Home() {
 
   useEffect(() => {
     const modelToScore = {
+      "bart-kde4" : "",
+      "bart-iswlt2017" : "",
       "marian-kde4" : "BLEU : 47.283",
       "marian-iswlt2017" : "BLEU : 40.884",
       "T5-kde4" : "BLEU : 43.718",
