@@ -7,6 +7,8 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import loading from "../spinner.gif"
+import Image from "next/image";
 
 interface InputProps {
     placeholder : string
@@ -73,8 +75,10 @@ export default function Home() {
 
     try {
       console.log("http://0.0.0.0:8000/" + model + "/" + query)
+      setIsLoading(true);
       const response = await fetch("http://0.0.0.0:8000/" + model + "/" + query);
       const responseData = await response.json();
+      setIsLoading(false);
       setRenderedTranslation(responseData.message);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -84,9 +88,12 @@ export default function Home() {
 
   const [model, setModel] = useState('');
   const [score, setScores] = useState("Select a model!");
+  const [isloading, setIsLoading] = useState(false);
 
   const handleChange = (event: SelectChangeEvent) => {
     setModel(event.target.value as string);
+    setRenderedTranslation("");
+    console.log(renderedTranslation);
   };
 
   useEffect(() => {
@@ -137,6 +144,8 @@ export default function Home() {
                 <MenuItem value={"marian-iswlt2017"}>Marian (iswlt2017) </MenuItem>
                 <MenuItem value={"T5-kde4"}>T5 (KDe4) </MenuItem>
                 <MenuItem value={"T5-iswlt2017"}>T5 (iswlt2017) </MenuItem>
+                <MenuItem value={"bart-iswlt2017"}>Bart (iswlt2017) </MenuItem>
+                <MenuItem value={"bart-kde4"}>Bart (kde4) </MenuItem>
                 <MenuItem value={"delight"}>Delight</MenuItem>
   
               </Select>
@@ -148,7 +157,9 @@ export default function Home() {
       </div>
 </div>
 
-
+        <div className="flex items-center justify-center">
+        {isloading && <div className="m-5">Loading...</div>}
+        </div>
         
         <div className="flex items-center font-bold justify-center">
           <button 

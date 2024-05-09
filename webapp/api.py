@@ -8,16 +8,26 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello, World"}
 
+@app.get("/bart-kde4/{english_text}")
+def do_bart_kde4(english_text):
+    pipe = pipeline("text2text-generation", model="emath/facebook-bart-finetuned-kde4-en-to-fr")
+    res = pipe(english_text)
+    return {"message" : res[0]['generated_text']}
+
+@app.get("/bart-iswlt2017/{english_text}")
+def do_bart_iswlt2017(english_text):
+    pipe = pipeline("text2text-generation", model="emath/facebook-bart-finetuned-iswlt2017-en-to-fr")
+    res = pipe(english_text)
+    return {"message" : res[0]['generated_text']}
+
 @app.get("/T5-iswlt2017/{english_text}")
 def do_T5_iswlt2017(english_text):
-    print(english_text)
     pipe = pipeline("text2text-generation", model="emath/google-t5base-finetuned-iswlt2017-en-to-fr")
     res = pipe(english_text)
     return {"message" : res[0]['generated_text']}
 
 @app.get("/T5-kde4/{english_text}")
 def do_T5_kde4(english_text):
-    print(english_text)
     pipe = pipeline("text2text-generation", model="emath/google-t5base-finetuned-kde4-en-to-fr")
     res = pipe(english_text)
     return {"message" : res[0]['generated_text']}
@@ -25,7 +35,6 @@ def do_T5_kde4(english_text):
 # /items/?q=somevalue.
 @app.get("/marian-kde4/{english_text}")
 def do_marian_kde4(english_text):
-    print(english_text)
     translator = pipeline("translation_en_to_fr", model="emath/marian-finetuned-kde4-en-to-fr")
     res = translator(english_text)
     return {"message" : res[0]['translation_text']}
