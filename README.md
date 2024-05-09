@@ -1,6 +1,8 @@
 # Reproducing the Experiments
 
-The notebooks are all self contained. You simply need to connect to your own GPU and run them.
+The finetuned model notebooks are all self contained. You simply need to connect to your own GPU and run them.
+
+The delight model has a shell script that you can run.
 
 # Using the Webapp
 
